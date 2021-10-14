@@ -16,7 +16,7 @@ describe('Persistent Node Chat Server', () => {
   beforeAll((done) => {
     dbConnection.connect();
 
-       const tablename = 'messages'; // TODO: fill this out
+       const tablename = 'messages';
 
     /* Empty the db table before all tests so that multiple tests
      * (or repeated runs of the tests)  will not fail when they should be passing
@@ -41,7 +41,7 @@ describe('Persistent Node Chat Server', () => {
       .then(() => {
         // Now if we look in the database, we should find the posted message there.
 
-        /* TODO: You might have to change this test to get all the data from
+        /* You might have to change this test to get all the data from
          * your message table, since this is schema-dependent. */
         const queryString = 'SELECT * FROM messages';
         const queryArgs = [];
@@ -53,7 +53,7 @@ describe('Persistent Node Chat Server', () => {
           // Should have one result:
           expect(results.length).toEqual(1);
 
-          // TODO: If you don't have a column named text, change this test.
+          // If you don't have a column named text, change this test.
           expect(results[0].text).toEqual(message);
           done();
         });

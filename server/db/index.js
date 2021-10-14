@@ -23,4 +23,19 @@ connection.connect((err) => {
   console.log('connected as id ' + connection.threadId);
 });
 
-exports.db = connection;
+//exports.db = connection;
+module.exports = connection;
+
+/*
+exports.db <--- not advisable
+ exports = {
+   db: connection
+ }
+ db.db.query()
+
+////////////////
+
+this is for modules.exports
+ exports = connection
+
+ */
