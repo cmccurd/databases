@@ -20,7 +20,7 @@ var Messages = {
     var length = Object.keys(Messages._data).length;
 
     for (let message of messages) {
-      Messages._data[message.message_id] = Messages._conform(message);
+      Messages._data[message.messages_id] = Messages._conform(message);
     }
 
     // only invoke the callback if something changed
@@ -32,8 +32,8 @@ var Messages = {
   _conform: function(message) {
     // ensure each message object conforms to expected shape
     message.text = message.text || '';
-    message.username = message.username || '';
-    message.roomname = message.roomname || '';
+    message.username = message.userName || '';
+    message.roomname = message.roomName || '';
     return message;
   }
 

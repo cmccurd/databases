@@ -10,6 +10,9 @@ var App = {
 
   initialize: function() {
     App.username = window.location.search.substr(10);
+    Parse.createUser({username: App.username}, () => {
+      console.log('sent user');
+    })
 
     FormView.initialize();
     RoomsView.initialize();
@@ -26,7 +29,7 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      console.log(data);
+      // console.log(data);
       // Only update if we have messages.
       if (data && data.length) {
         Rooms.update(data, RoomsView.render);
@@ -34,6 +37,7 @@ var App = {
 
         callback();
       }
+      callback();
       return;
 
           });

@@ -30,13 +30,13 @@ describe('Persistent Node Chat Server', () => {
 
   it('Should insert posted messages to the DB', (done) => {
     const username = 'Valjean';
-    const message = 'In mercy\'s name, three days is all I need.';
+    const text = 'In mercy\'s name, three days is all I need.';
     const roomname = 'Hello';
     // Create a user on the chat server database.
     axios.post(`${API_URL}/users`, { username })
       .then(() => {
         // Post a message to the node chat server:
-        return axios.post(`${API_URL}/messages`, { username, message, roomname });
+        return axios.post(`${API_URL}/messages`, { username, text, roomname });
       })
       .then(() => {
         // Now if we look in the database, we should find the posted message there.
@@ -54,7 +54,7 @@ describe('Persistent Node Chat Server', () => {
           expect(results.length).toEqual(1);
 
           // If you don't have a column named text, change this test.
-          expect(results[0].text).toEqual(message);
+          expect(results[0].text).toEqual(text);
           done();
         });
       })
@@ -65,25 +65,25 @@ describe('Persistent Node Chat Server', () => {
 
   it('Should output all messages from the DB', (done) => {
     // Let's insert a message into the db
-       const queryString = '';
+       const queryString = 'SELECT * FROM messages';
        const queryArgs = [];
     /* TODO: The exact query string and query args to use here
      * depend on the schema you design, so I'll leave them up to you. */
     dbConnection.query(queryString, queryArgs, (err) => {
       if (err) {
-        throw err;
+        console.log(error);
       }
 
       // Now query the Node chat server and see if it returns the message we just inserted:
       axios.get(`${API_URL}/messages`)
         .then((response) => {
           const messageLog = response.data;
-          expect(messageLog[0].text).toEqual(message);
-          expect(messageLog[0].roomname).toEqual(roomname);
+          expect(messageLog[0].text).toEqual('In mercy\'s name, three days is all I need.');
+          expect(messageLog[0].roomName).toEqual('Hello');
           done();
         })
         .catch((err) => {
-          throw err;
+          console.log(err);
         });
     });
   });
